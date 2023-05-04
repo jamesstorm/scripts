@@ -1,8 +1,13 @@
 #!/bin/bash
+#
 echo "The user is $USER"
 
-THEUSER="x"
+if [ "$(id -u)" -ne 0 ]; then
+	THEUSER=$USER
+	echo "sudo NOT in use"
+else
+	THEUSER=$SUDO_USER
+	echo "sudo IS in use"
+fi
 
-if [ "$(id -u)" -ne 0 ]; then THEUSER=$USER; else THEUSER=$SUDO_USER; fi
-
-echo "But we really want $THEUSER"
+echo "So, the user is $THEUSER"
